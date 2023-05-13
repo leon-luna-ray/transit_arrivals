@@ -1,8 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  // To load the .env file contents into dotenv.
+  // NOTE: fileName defaults to .env and can be omitted in this case.
+  // Ensure that the filename corresponds to the path in step 1 and 2.
+  // await dotenv.load(fileName: ".env");
+
   runApp(MyApp());
 }
 
@@ -104,8 +111,15 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GeneratorPage extends StatelessWidget {
+  void getArrivals() async {
+    var res = await Dio().get('https://jsonplaceholder.typicode.com/posts/1');
+    print(res);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getArrivals();
+
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
 
